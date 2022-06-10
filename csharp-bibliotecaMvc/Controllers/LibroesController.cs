@@ -65,7 +65,8 @@ namespace csharp_bibliotecaMvc.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LibroID,Titolo,Scaffale,Stato")] Libro libro)
+        //public async Task<IActionResult> Create([Bind("LibroID,Titolo,Scaffale,Stato")] Libro libro)
+        public async Task<IActionResult> Create([Bind("Titolo,Scaffale,Stato")] Libro libro)
         {
             if (ModelState.IsValid)
             {
@@ -169,6 +170,42 @@ namespace csharp_bibliotecaMvc.Controllers
           return (_context.Libri?.Any(e => e.LibroID == id)).GetValueOrDefault();
         }
 
+        public IActionResult AddAutore(int id)
+        {
+            ViewBag.Id = Convert.ToString(id);
+            return View("AddAutore");
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddAutore([Bind("IdLibro, Nome, Cognome")] AutoreLibro autoreLibro)
+        {
+            if (ModelState.IsValid)
+            {
+                Autore nuovo = new Autore();
+
+                nuovo.Nome = autoreLibro.Nome;
+
+                _context.Autori.Add(nuovo);
+
+                // _context.SaveChanges();
+
+                //var autoreInserito = _context.Autoris.Where(m => m.Nome == autoreLibro.Nome && m.Cognome==autoreLibro.Cognome).First();
+
+                //AutoreLibroDB nuovoElementoPonte = new AutoreLibroDB();
+
+                //nuovoElementoPonte.AutoriAutoreId = autoreLibro.IdLibro;
+                //nuovoElementoPonte.LibroID = autoreInserito.AutoreId;
+
+                var libro = _context.Libri.FirstOrDefault(m => m.LibroID == autoreLibro.IdLibro);
+                if (libro.Autori == null) { libro.Autori = new List<Autore>(); }
+
+                libro.Autori.Add(nuovo);
+
+
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
