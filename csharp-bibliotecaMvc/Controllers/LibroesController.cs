@@ -178,29 +178,24 @@ namespace csharp_bibliotecaMvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddAutore([Bind("IdLibro, Nome, Cognome")] AutoreLibro autoreLibro)
+        public IActionResult AddAutore([Bind("IdLibro,Nome")] AutoreLibro autoreLibro)
         {
             if (ModelState.IsValid)
             {
-                Autore nuovo = new Autore();
-
-                nuovo.Nome = autoreLibro.Nome;
+                Autore nuovo = new Autore()
+                {
+                    Nome = autoreLibro.Nome,
+                };
 
                 _context.Autori.Add(nuovo);
 
-                // _context.SaveChanges();
+                var Libro = _context.Libri.FirstOrDefault(m => m.LibroID == autoreLibro.IdLibro);
+                if (Libro.Autori == null) 
+                { 
+                    Libro.Autori = new List<Autore>(); 
+                }
 
-                //var autoreInserito = _context.Autoris.Where(m => m.Nome == autoreLibro.Nome && m.Cognome==autoreLibro.Cognome).First();
-
-                //AutoreLibroDB nuovoElementoPonte = new AutoreLibroDB();
-
-                //nuovoElementoPonte.AutoriAutoreId = autoreLibro.IdLibro;
-                //nuovoElementoPonte.LibroID = autoreInserito.AutoreId;
-
-                var libro = _context.Libri.FirstOrDefault(m => m.LibroID == autoreLibro.IdLibro);
-                if (libro.Autori == null) { libro.Autori = new List<Autore>(); }
-
-                libro.Autori.Add(nuovo);
+                Libro.Autori.Add(nuovo);
 
 
                 _context.SaveChanges();

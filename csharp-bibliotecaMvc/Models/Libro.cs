@@ -14,7 +14,7 @@ namespace csharp_bibliotecaMvc.Models
         public string Titolo { get; set; }
         public int Scaffale { get; set; }
         public StatoLibro Stato { get; set; } 
-        public ICollection<Prestito> Prestiti { get; set; }
-        public ICollection<Autore> Autori { get; set; }
+        public ICollection<Prestito>? Prestiti { get; set; }
+        public ICollection<Autore>? Autori { get; set; }
     }
 }
