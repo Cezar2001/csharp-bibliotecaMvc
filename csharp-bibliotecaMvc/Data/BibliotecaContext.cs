@@ -12,6 +12,8 @@ namespace csharp_bibliotecaMvc.Data
         public DbSet<Libro> Libri { get; set; }
         public DbSet<Prestito> Prestiti { get; set; }
         public DbSet<Utente> Utenti { get; set; }
+        public DbSet<Autore> Autori { get; set; }
+        //public DbSet<AutoreLibro> AutoriLibro { get; set; }
 
         /*
          * Di default i nomi delle tabelle sono creati al plurale. Questo metodo 
@@ -22,6 +24,8 @@ namespace csharp_bibliotecaMvc.Data
             modelBuilder.Entity<Libro>().ToTable("Libro");
             modelBuilder.Entity<Prestito>().ToTable("Prestito");
             modelBuilder.Entity<Utente>().ToTable("Utente");
+            modelBuilder.Entity<Autore>().ToTable("Autori");
+            //modelBuilder.Entity<AutoreLibro>().ToTable("AutoreLibro");
         }
     }
 }

@@ -7,9 +7,6 @@ namespace csharp_bibliotecaMvc.Models
     {
         public int AutoreID { get; set; }
         public string Nome { get; set; }
-        public int Scaffale { get; set; }
-        public StatoLibro Stato { get; set; }
-        public ICollection<Prestito> Prestiti { get; set; }
-        public ICollection<Autore> Autori { get; set; }
+        public ICollection<Libro>? Libro { get; set; }
     }
 }

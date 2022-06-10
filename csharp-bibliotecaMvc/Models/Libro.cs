@@ -10,7 +10,6 @@ namespace csharp_bibliotecaMvc.Models
 
     public class Libro
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int LibroID { get; set; }
         public string Titolo { get; set; }
         public int Scaffale { get; set; }
